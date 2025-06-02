@@ -1,0 +1,25 @@
+{% extends 'management/base.html' %}
+{% block title %}Add Fish Stock{% endblock %}
+
+{% block content %}
+<h2>Add Fish Stock</h2>
+<form method="post">{% csrf_token %}
+    <label>Fish Type:<br>
+        <select name="fish_type" required>
+            <option value="salmon">Salmon</option>
+            <option value="tuna">Tuna</option>
+            <option value="mackerel">Mackerel</option>
+            <option value="prawns">Prawns</option>
+            <option value="other">Other</option>
+        </select>
+    </label><br><br>
+
+    <label>Quantity (kg):<br><input type="number" step="0.01" name="quantity_kg" required></label><br><br>
+
+    <label>Quality Grade:<br><input type="text" name="quality_grade" maxlength="20" required></label><br><br>
+
+    <label>Storage Location:<br><input type="text" name="storage_location" maxlength="100" required></label><br><br>
+
+    <button type="submit">Add Stock</button>
+</form>
+{% endblock %}

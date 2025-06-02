@@ -1,0 +1,45 @@
+{% extends 'management/base.html' %}
+{% block title %}Fish Inventory{% endblock %}
+
+{% block content %}
+<h2>Fish Inventory</h2>
+
+{% if user.profile.role == 'admin' %}
+<a href="{% url 'fish_inventory_add' %}">
+    <button
+        style="background-color: #457b9d; color: #f1faee; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px;">Add
+        New Stock</button>
+</a>
+{% endif %}
+
+<table style="width: 100%; margin-top: 20px; border-collapse: collapse; font-family: Arial, sans-serif;">
+    <thead style="background-color: #264653; color: #f1faee;">
+        <tr>
+            <th style="border: 1px solid #457b9d; padding: 10px;">Fish Type</th>
+            <th style="border: 1px solid #457b9d; padding: 10px;">Quantity (kg)</th>
+            <th style="border: 1px solid #457b9d; padding: 10px;">Quality Grade</th>
+            <th style="border: 1px solid #457b9d; padding: 10px;">Storage Location</th>
+            <th style="border: 1px solid #457b9d; padding: 10px;">Date Added</th>
+            <th style="border: 1px solid #457b9d; padding: 10px;">Added By</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fish in fish_list %}
+        <tr style="background-color: #f1faee;">
+            <td style="border: 1px solid #a8dadc; padding: 8px;">{{ fish.get_fish_type_display }}</td>
+            <td style="border: 1px solid #a8dadc; padding: 8px;">{{ fish.quantity_kg }}</td>
+            <td style="border: 1px solid #a8dadc; padding: 8px;">{{ fish.quality_grade }}</td>
+            <td style="border: 1px solid #a8dadc; padding: 8px;">{{ fish.storage_location }}</td>
+            <td style="border: 1px solid #a8dadc; padding: 8px;">{{ fish.date_added }}</td>
+            <td style="border: 1px solid #a8dadc; padding: 8px;">{{ fish.added_by.username if fish.added_by else "N/A"
+                }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" style="text-align:center; padding: 12px; background-color: #a8dadc;">No fish stock records
+                found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
